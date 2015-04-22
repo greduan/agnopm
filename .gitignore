@@ -2,9 +2,13 @@ bin/*
 !bin/.gitkeep
 build/*
 !build/.gitkeep
+destdir/*
+!destdir/.gitkeep
 man/*
 !man/.gitkeep
 meta/*
 !meta/.gitkeep
 packages/*
 !packages/.gitkeep
+source/*
+!source/.gitkeep

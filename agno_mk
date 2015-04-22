@@ -5,22 +5,36 @@
 . ./Pkgfile
 
 # re-define vars with new info
-AGNO_BUILD=$AGNO_BUILD/$name\#$version-$release
+PKGNAME=$name\#$version-$release
+AGNO_WORK=$AGNO_WORK/$PKGNAME
+AGNO_SOURCE=$AGNO_SOURCE/$PKGNAME
+AGNO_DESTDIR=$AGNO_DESTDIR/$PKGNAME
 
 # download source files
-mkdir -p $AGNO_BUILD
-cd $AGNO_BUILD
+mkdir -p $AGNO_SOURCE
+cd $AGNO_SOURCE
 for url in $source; do
 	curl --ssl -L -O $url
 done
 
 # unpack files
 for file in *; do
-	$HOME/agno/unboop "$file"
+	$AGNO_HOME/unboop "$file"
 done
 
+# create work dir
+mkdir -p $AGNO_WORK
+if [ "$(ls -A $AGNO_SOURCE)" ]; then
+	cp -R $AGNO_SOURCE/* $AGNO_WORK
+fi
+
 # run build function
+cd $AGNO_WORK
 agno_build
 
+# gotta install that shiz diz
+agno_install
+
 # cleanup
-rm -r $AGNO_BUILD
+rm -r $AGNO_WORK
+#rm -r $AGNO_DESTDIR

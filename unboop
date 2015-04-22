@@ -46,7 +46,7 @@ case "$1" in
 		break
 		;;
 	*)
-		echo "'$1' unboop can't figure this out :/"
-		break
+		echo "unboop can't figure out '$1'"
+		exit
 		;;
 esac
