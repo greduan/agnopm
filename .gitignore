@@ -2,6 +2,8 @@ bin/*
 !bin/.gitkeep
 build/*
 !build/.gitkeep
+man/*
+!man/.gitkeep
 meta/*
 !meta/.gitkeep
 packages/*

@@ -1,0 +1,52 @@
+#!/bin/sh -e
+
+case "$1" in
+	*.tar.bz2)
+		tar xjf "$1"
+		break
+		;;
+	*.tar.gz)
+		tar xzf "$1"
+		break
+		;;
+	*.bz2)
+		bunzip2 "$1"
+		break
+		;;
+	*.rar)
+		rar x "$1"
+		break
+		;;
+	*.gz)
+		gunzip "$1"
+		break
+		;;
+	*.tar)
+		tar xf "$1"
+		break
+		;;
+	*.tbz2)
+		tar xjf "$1"
+		break
+		;;
+	*.tgz)
+		tar xzf "$1"
+		break
+		;;
+	*.zip)
+		unzip "$1"
+		break
+		;;
+	*.Z)
+		uncompress "$1"
+		break
+		;;
+	*.7z)
+		7z x "$1"
+		break
+		;;
+	*)
+		echo "'$1' unboop can't figure this out :/"
+		break
+		;;
+esac

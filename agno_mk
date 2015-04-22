@@ -11,12 +11,12 @@ AGNO_BUILD=$AGNO_BUILD/$name\#$version-$release
 mkdir -p $AGNO_BUILD
 cd $AGNO_BUILD
 for url in $source; do
-	curl -O $url
+	curl --ssl -L -O $url
 done
 
 # unpack files
 for file in *; do
-	$HOME/agno/unboop
+	$HOME/agno/unboop "$file"
 done
 
 # run build function
