@@ -1,0 +1,5 @@
+#!/bin/sh -e
+
+. $HOME/agno/agnorc
+
+ls -1 $AGNO_META
