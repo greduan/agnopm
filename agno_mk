@@ -36,9 +36,12 @@ agno_build
 agno_install
 
 # let's make a package out of the result
-tar -czvf $PKGNAME.tar.gz $AGNO_DESTDIR
+tar -czvf $PKGNAME.tar.gz -C $AGNO_DESTDIR .
 mv $PKGNAME.tar.gz $AGNO_PACKAGES
 
 # we're done! let's cleanup
 rm -rf $AGNO_WORK
 rm -rf $AGNO_DESTDIR
+
+# notice
+echo "Built '$PKGNAME' successfully (i.e. without errors)"

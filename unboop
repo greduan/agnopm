@@ -47,6 +47,6 @@ case "$1" in
 		;;
 	*)
 		echo "unboop can't figure out '$1'"
-		exit
+		break
 		;;
 esac

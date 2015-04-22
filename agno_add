@@ -1,0 +1,20 @@
+#!/bin/sh -e
+
+# get our vars
+. $HOME/agno/agnorc
+
+# unpackage package so we can work with files
+FN=$(basename "$1")
+cp "$1" "$AGNO_WORK/$FN"
+cd $AGNO_WORK
+$AGNO_HOME/unboop "$FN"
+
+# copy binaries and man pages
+test -d bin && cp -R bin/* $AGNO_BIN
+test -d man && cp -R man/* $AGNO_MAN
+
+# cleanup
+rm -rf $AGNO_WORK/*
+
+# notice
+echo "Installed '$1' successfully (i.e. without errors)"
