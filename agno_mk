@@ -1,0 +1,26 @@
+#!/bin/sh -e
+
+# load relevant files
+. $HOME/agno/agnorc
+. ./Pkgfile
+
+# re-define vars with new info
+AGNO_BUILD=$AGNO_BUILD/$name\#$version-$release
+
+# download source files
+mkdir -p $AGNO_BUILD
+cd $AGNO_BUILD
+for url in $source; do
+	curl -O $url
+done
+
+# unpack files
+for file in *; do
+	$HOME/agno/unboop
+done
+
+# run build function
+agno_build
+
+# cleanup
+rm -r $AGNO_BUILD

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+AGNO_BUILD=$HOME/agno/build/

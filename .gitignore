@@ -1,0 +1,8 @@
+bin/*
+!bin/.gitkeep
+build/*
+!build/.gitkeep
+meta/*
+!meta/.gitkeep
+packages/*
+!packages/.gitkeep
