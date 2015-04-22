@@ -1,0 +1,18 @@
+#!/bin/sh -e
+
+# get vars
+. $HOME/agno/agnorc
+
+# find package name in a lot of kinds of strings
+PN=$(basename $1 | cut -d\# -f1)
+
+# read each line in the file
+while read line; do
+	rm -f "$AGNO_BIN/$line"
+done < "$AGNO_META/$PN"
+
+# no longer necessary
+rm "$AGNO_META/$PN"
+
+# notice
+echo "Uninstalled '$1' successfully (i.e. without errors)"

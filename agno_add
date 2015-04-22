@@ -13,6 +13,10 @@ $AGNO_HOME/unboop "$FN"
 test -d bin && cp -R bin/* $AGNO_BIN
 test -d man && cp -R man/* $AGNO_MAN
 
+# fill meta data about new package
+# TODO: can we make this cleaner?
+find . -type f | sed '/.tar.gz/d;/.gitkeep/d' > "$AGNO_META/$(echo $FN | cut -d\# -f1)"
+
 # cleanup
 rm -rf $AGNO_WORK/*
 
