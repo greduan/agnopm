@@ -35,6 +35,10 @@ agno_build
 # gotta install that shiz diz
 agno_install
 
-# cleanup
-rm -r $AGNO_WORK
-#rm -r $AGNO_DESTDIR
+# let's make a package out of the result
+tar -czvf $PKGNAME.tar.gz $AGNO_DESTDIR
+mv $PKGNAME.tar.gz $AGNO_PACKAGES
+
+# we're done! let's cleanup
+rm -rf $AGNO_WORK
+rm -rf $AGNO_DESTDIR

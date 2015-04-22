@@ -10,5 +10,7 @@ meta/*
 !meta/.gitkeep
 packages/*
 !packages/.gitkeep
+ports/*
+!ports/.gitkeep
 source/*
 !source/.gitkeep
