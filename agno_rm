@@ -8,7 +8,7 @@ PN=$(basename $1 | cut -d\# -f1)
 
 # read each line in the file
 while read line; do
-	rm -f "$AGNO_BIN/$line"
+	rm -f "$line"
 done < "$AGNO_META/$PN"
 
 # no longer necessary

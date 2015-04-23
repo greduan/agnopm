@@ -3,22 +3,21 @@
 # get our vars
 . $HOME/agno/agnorc
 
-# unpackage package so we can work with files
-FN=$(basename "$1")
-cp "$1" "$AGNO_WORK/$FN"
+# untar package so we can work with files
+mkdir -p $AGNO_WORK
+cp "$1" "$AGNO_WORK"
 cd $AGNO_WORK
-$AGNO_HOME/unboop "$FN"
+tar xzf *.tar.gz
 
-# copy binaries and man pages
-test -d bin && cp -R bin/* $AGNO_BIN
-test -d man && cp -R man/* $AGNO_MAN
+# copy usr dir, which should contain everything
+rsync -av usr/ $AGNO_USR
 
 # fill meta data about new package
 # TODO: can we make this cleaner?
-find . -type f | sed '/.tar.gz/d;/.gitkeep/d' > "$AGNO_META/$(echo $FN | cut -d\# -f1)"
+find . -type f | sed '/.tar.gz/d' > "$AGNO_META/$(basename $1 | cut -d\# -f1)"
 
 # cleanup
-rm -rf $AGNO_WORK/*
+rm -rf $AGNO_WORK
 
 # notice
 echo "Installed '$1' successfully (i.e. without errors)"
