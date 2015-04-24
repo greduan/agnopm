@@ -27,7 +27,7 @@ throughout the source code, documentation and stuff.  To make it clear:
 To start using `agnopm` you just need to do a couple of things:
 
     $ cd $HOME
-    $ git clone https://github.com/agnopm/agnopm agno
+    $ git clone https://github.com/agnopm/agno
     $ cd agno
     $ sh bootstrap.sh
 
