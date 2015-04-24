@@ -15,7 +15,7 @@ mkdir -p $AGNO_SOURCE
 cd $AGNO_SOURCE
 for url in $source; do
 	# only download stuff that looks like a URL
-	if egrep -q '^(http|ftp)s?://'; then
+	if grep -qE '^(http|ftp)s?://'; then
 		curl --ssl -L -O $url
 	fi
 done
