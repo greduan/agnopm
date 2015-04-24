@@ -6,19 +6,20 @@
 
 # re-define vars with new info
 PKGNAME=$name\#$version-$release
-AGNO_WORK=$AGNO_WORK/$PKGNAME
 AGNO_SOURCE=$AGNO_SOURCE/$PKGNAME
 AGNO_DESTDIR=$AGNO_DESTDIR/$PKGNAME
 
 # download source files (if necessary)
-mkdir -p $AGNO_SOURCE
-cd $AGNO_SOURCE
-for url in $source; do
-	# only download stuff that looks like a URL
-	if grep -qE '^(http|ftp)s?://'; then
-		curl --ssl -L -O $url
-	fi
-done
+if [ -n "$source" ]; then
+	mkdir -p $AGNO_SOURCE
+	cd $AGNO_SOURCE
+	for url in $source; do
+		# only download stuff that looks like a URL
+		if grep -qE '^(http|ftp)s?://'; then
+			curl --ssl -L -O $url
+		fi
+	done
+fi
 
 # create necessary dirs for build
 mkdir -p $AGNO_DESTDIR $AGNO_WORK
@@ -41,8 +42,7 @@ cd $AGNO_DESTDIR
 tar -czv . > $AGNO_PACKAGES/$PKGNAME.tar.gz 
 
 # we're done! let's cleanup
-rm -rf $AGNO_WORK
-rm -rf $AGNO_DESTDIR
+rm -rf $AGNO_WORK $AGNO_DESTDIR
 
 # notice
 echo "Built '$PKGNAME' successfully (i.e. without errors)"
