@@ -24,15 +24,16 @@ if [ -n "$source" ]; then
 			# if we've already got a dir by that name
 			if cd $name-git; then
 				git fetch -q
-				git reset --hard origin master
+				git reset --hard origin/master
 			else
 				git clone $src $name-git
 			fi
 		# we've got ourselves a normal file
 		else
-			cp $PKGFILE_DIR/$src $AGNO_SOURCE
+			cp -f $PKGFILE_DIR/$src $AGNO_SOURCE
 		fi
 	done
+	cd $AGNO_SOURCE
 fi
 
 # create necessary dirs for build
@@ -41,7 +42,7 @@ mkdir -p $AGNO_DESTDIR $AGNO_WORK
 # unpack / copy source files if there are any
 if [ -n "$(ls $AGNO_SOURCE 2>/dev/null)" ]; then
 	$AGNO_HOME/unboop *
-	cp -R $AGNO_SOURCE/* $AGNO_WORK
+	cp -fR $AGNO_SOURCE/* $AGNO_WORK
 fi
 
 # run build function
