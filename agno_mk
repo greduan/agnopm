@@ -1,8 +1,8 @@
 #!/bin/sh -e
 
 # load our vars
-. $HOME/agno/agnorc
-. ./Pkgfile
+. $HOME/agno/agnorc || exit 1
+. ./Pkgfile || exit 1
 
 # re-define vars with new info
 PKGNAME=$name\#$version-$release
@@ -15,21 +15,17 @@ mkdir -p $AGNO_SOURCE
 cd $AGNO_SOURCE
 for url in $source; do
 	# only download stuff that looks like a URL
-	if egrep -q 'https?://'; then
+	if egrep -q '^(http|ftp)s?://'; then
 		curl --ssl -L -O $url
 	fi
 done
 
-# unpack files
-if [ -n "$(ls -A $AGNO_SOURCE)" ]; then
-	$AGNO_HOME/unboop *
-fi
-
 # create necessary dirs for build
 mkdir -p $AGNO_DESTDIR $AGNO_WORK
 
-# copy source files if there are any
-if [ -n "$(ls -A $AGNO_SOURCE)" ]; then
+# unpack / copy source files if there are any
+if [ -n "$(ls $AGNO_SOURCE)" ]; then
+	$AGNO_HOME/unboop *
 	cp -R $AGNO_SOURCE/* $AGNO_WORK
 fi
 
@@ -41,8 +37,8 @@ agno_build
 agno_install
 
 # let's make a package out of the result
-tar -czvf $PKGNAME.tar.gz -C $AGNO_DESTDIR .
-mv $PKGNAME.tar.gz $AGNO_PACKAGES
+cd $AGNO_DESTDIR
+tar -czv . > $AGNO_PACKAGES/$PKGNAME.tar.gz 
 
 # we're done! let's cleanup
 rm -rf $AGNO_WORK

@@ -1,20 +1,22 @@
 #!/bin/sh -e
 
 # get our vars
-. $HOME/agno/agnorc
+. $HOME/agno/agnorc || exit 1
+
+PKGFILE="$(basename $1)"
+PKGNAME="$(echo $PKG_FILE | cut -d# -f1)"
 
 # untar package so we can work with files
 mkdir -p $AGNO_WORK
 cp "$1" "$AGNO_WORK"
 cd $AGNO_WORK
-tar xzf *.tar.gz
+tar xzf $PKGFILE
 
 # copy usr dir, which should contain everything
-rsync -av usr/ $AGNO_USR
+cp -R usr/ $AGNO_USR
 
 # fill meta data about new package
-# TODO: can we make this cleaner?
-find . -type f | sed '/.tar.gz/d' > "$AGNO_META/$(basename $1 | cut -d\# -f1)"
+find usr -type f > $AGNO_META/$PKGNAME
 
 # cleanup
 rm -rf $AGNO_WORK

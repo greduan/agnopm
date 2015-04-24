@@ -1,6 +1,6 @@
 #!/bin/sh
 
-mkdir meta packages source usr/{bin,include,lib,man,share}
+mkdir -p meta packages source usr/{bin,include,lib,man,share}
 
 git clone https://github.com/agnopm/ports ports
 
