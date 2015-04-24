@@ -17,6 +17,8 @@ if [ -n "$source" ]; then
 		# only download stuff that looks like a URL
 		if grep -qE '^(http|ftp)s?://'; then
 			curl --ssl -L -O $url
+		elif grep -qE '^git://'; then
+			git clone $url $name
 		else
 			cp $url $AGNO_SOURCE
 		fi
