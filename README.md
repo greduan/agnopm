@@ -35,16 +35,19 @@ This will install `agno`, make all the necessary dirs and download the already
 made ports so that you don't have to write them all (hopefully).  The bootstrap
 will additionally make a symlink of all the `agno` commands into the bin dir.
 
-The next step is to add `$HOME/agno/usr/bin` to your `PATH` variable and to add
-`$HOME/agno/usr/man` to your `MANPATH` variable.  If you're going to install
-libraries, which you probably will for some programs, also add
-`$HOME/agno/usr/lib` to your `LD_LIBRARY_PATH` variable and
+### Using `agno`'s `/usr` directory
+
+Add `$HOME/agno/usr/bin` to your `PATH` variable.
+
+Use `man -m $HOME/agno/usr/man/` when you want to use man pages, setup an alias if you like.
+
+Add `$HOME/agno/usr/lib` to your `LD_LIBRARY_PATH` variable and
 `$HOME/agno/usr/include` to your `C_INCLUDE_PATH` variable.
 
 ## Usage
 
 You should look at each individual command to understand it, though eventually
-I'll probably make manpages and a real guide.  Sorry for the inconvenience.  orz
+I'll probably make manpages and a real guide.  Sorry for the inconvenience. orz
 
 ## License
 

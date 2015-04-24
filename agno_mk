@@ -10,13 +10,15 @@ AGNO_SOURCE=$AGNO_SOURCE/$PKGNAME
 AGNO_DESTDIR=$AGNO_DESTDIR/$PKGNAME
 
 # download source files (if necessary)
+mkdir -p $AGNO_SOURCE
 if [ -n "$source" ]; then
-	mkdir -p $AGNO_SOURCE
 	cd $AGNO_SOURCE
 	for url in $source; do
 		# only download stuff that looks like a URL
 		if grep -qE '^(http|ftp)s?://'; then
 			curl --ssl -L -O $url
+		else
+			cp $url $AGNO_SOURCE
 		fi
 	done
 fi
@@ -25,7 +27,7 @@ fi
 mkdir -p $AGNO_DESTDIR $AGNO_WORK
 
 # unpack / copy source files if there are any
-if [ -n "$(ls $AGNO_SOURCE)" ]; then
+if [ -n "$(ls $AGNO_SOURCE 2>/dev/null)" ]; then
 	$AGNO_HOME/unboop *
 	cp -R $AGNO_SOURCE/* $AGNO_WORK
 fi
