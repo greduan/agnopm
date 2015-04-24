@@ -3,6 +3,7 @@
 # load our vars
 . $HOME/agno/agnorc || exit 1
 . ./Pkgfile || exit 1
+PKGFILE_DIR=$PWD
 
 # re-define vars with new info
 PKGNAME=$name\#$version-$release
@@ -13,14 +14,23 @@ AGNO_DESTDIR=$AGNO_DESTDIR/$PKGNAME
 mkdir -p $AGNO_SOURCE
 if [ -n "$source" ]; then
 	cd $AGNO_SOURCE
-	for url in $source; do
+	# loop through our sources
+	for src in $source; do
 		# only download stuff that looks like a URL
-		if grep -qE '^(http|ftp)s?://'; then
-			curl --ssl -L -O $url
-		elif grep -qE '^git://'; then
-			git clone $url $name
+		if echo $src | grep -qE '^(http|ftp)s?://'; then
+			curl --ssl -L -O $src
+		# looks like git, we want to handle this differently
+		elif echo $src | grep -qE '^git://'; then
+			# if we've already got a dir by that name
+			if cd $name-git; then
+				git fetch -q
+				git reset --hard origin master
+			else
+				git clone $src $name-git
+			fi
+		# we've got ourselves a normal file
 		else
-			cp $url $AGNO_SOURCE
+			cp $PKGFILE_DIR/$src $AGNO_SOURCE
 		fi
 	done
 fi
