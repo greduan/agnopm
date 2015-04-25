@@ -2,7 +2,7 @@
 
 mkdir -p meta packages source usr/{bin,include,lib,man,share}
 
-git clone https://github.com/agnopm/ports ports
+git clone --depth 1 https://github.com/agnopm/ports ports
 
 cd usr/bin
 ln -s ../../agno_add ./agnoadd

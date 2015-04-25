@@ -27,7 +27,7 @@ if [ -n "$source" ]; then
 				git fetch -q
 				git reset --hard origin/master
 			else
-				git clone $src $name-git
+				git clone --depth 1 $src $name-git
 			fi
 		# we've got ourselves a normal file
 		else
@@ -41,9 +41,9 @@ mkdir -p $AGNO_DESTDIR $AGNO_WORK
 
 # unpack / copy source files if there are any
 if [ -n "$(ls $AGNO_SOURCE 2>/dev/null)" ]; then
-	cd $AGNO_SOURCE
-	$AGNO_HOME/unboop *
 	cp -fR $AGNO_SOURCE/* $AGNO_WORK
+	cd $AGNO_WORK
+	$AGNO_HOME/unboop *
 fi
 
 # run build function
