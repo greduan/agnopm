@@ -51,6 +51,7 @@ cd $AGNO_WORK
 agno_build
 
 # gotta install that shiz diz
+cd $AGNO_WORK
 agno_install
 
 # let's make a package out of the result
