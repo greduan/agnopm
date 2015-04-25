@@ -7,13 +7,13 @@
 PKGNAME=$(basename $1 | cut -d# -f1)
 
 # delete all of the package's files
+cd $AGNO_HOME
 while read line; do
-	# TODO: I wonder if this'd cause trouble with dirs...
 	rm -f "$line"
-done < "$AGNO_META/$PKGNAME"
+done < $AGNO_META/$PKGNAME
 
 # no longer necessary
-rm "$AGNO_META/$PKGNAME"
+rm $AGNO_META/$PKGNAME
 
 # notice
 echo "Uninstalled '$1' successfully (i.e. without errors)"

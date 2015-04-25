@@ -10,10 +10,10 @@ PKGNAME="$(echo $PKGFILE | cut -d# -f1)"
 mkdir -p $AGNO_WORK
 cp "$1" "$AGNO_WORK"
 cd $AGNO_WORK
-tar xzf $PKGFILE
+tar xzvf $PKGFILE
 
 # copy usr dir, which should contain everything
-cp -R usr/ $AGNO_USR
+rsync -av usr/ $AGNO_USR
 
 # fill meta data about new package
 find usr/ -type f > $AGNO_META/$PKGNAME

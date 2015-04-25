@@ -56,7 +56,7 @@ agno_install
 
 # let's make a package out of the result
 cd $AGNO_DESTDIR
-tar -czvf . > $AGNO_PACKAGES/$PKGNAME.tar.gz
+tar -czvf $AGNO_PACKAGES/$PKGNAME.tar.gz .
 
 # we're done! let's cleanup
 rm -rf $AGNO_WORK $AGNO_DESTDIR
