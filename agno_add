@@ -4,7 +4,7 @@
 . $HOME/agno/agnorc || exit 1
 
 PKGFILE="$(basename $1)"
-PKGNAME="$(echo $PKG_FILE | cut -d# -f1)"
+PKGNAME="$(echo $PKGFILE | cut -d# -f1)"
 
 # untar package so we can work with files
 mkdir -p $AGNO_WORK
@@ -16,7 +16,7 @@ tar xzf $PKGFILE
 cp -R usr/ $AGNO_USR
 
 # fill meta data about new package
-find usr -type f > $AGNO_META/$PKGNAME
+find usr/ -type f > $AGNO_META/$PKGNAME
 
 # cleanup
 rm -rf $AGNO_WORK

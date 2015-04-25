@@ -6,8 +6,9 @@
 # find package name in a lot of kinds of strings
 PKGNAME=$(basename $1 | cut -d# -f1)
 
-# read each line in the file
+# delete all of the package's files
 while read line; do
+	# TODO: I wonder if this'd cause trouble with dirs...
 	rm -f "$line"
 done < "$AGNO_META/$PKGNAME"
 

@@ -3,6 +3,7 @@
 # load our vars
 . $HOME/agno/agnorc || exit 1
 . ./Pkgfile || exit 1
+
 PKGFILE_DIR=$PWD
 
 # re-define vars with new info
@@ -30,10 +31,9 @@ if [ -n "$source" ]; then
 			fi
 		# we've got ourselves a normal file
 		else
-			cp -f $PKGFILE_DIR/$src $AGNO_SOURCE
+			cp -fR $PKGFILE_DIR/$src $AGNO_SOURCE
 		fi
 	done
-	cd $AGNO_SOURCE
 fi
 
 # create necessary dirs for build
@@ -41,6 +41,7 @@ mkdir -p $AGNO_DESTDIR $AGNO_WORK
 
 # unpack / copy source files if there are any
 if [ -n "$(ls $AGNO_SOURCE 2>/dev/null)" ]; then
+	cd $AGNO_SOURCE
 	$AGNO_HOME/unboop *
 	cp -fR $AGNO_SOURCE/* $AGNO_WORK
 fi
