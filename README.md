@@ -20,8 +20,8 @@ something you have, you'll like this package manager.  :)
 I realise it may be prone to confusion if I use both `agnopm` and `agno`
 throughout the source code, documentation and stuff.  To make it clear:
 
-- **agno** - the package management utils (`agnomk` etc.).
-- **agnopm** - the name of this package manager, and the project.
+- **agno** - the package management utils (`agnomk` etc.)
+- **agnopm** - the name of the package manager and the project
 
 ## Installation
 
