@@ -2,9 +2,10 @@
 
 `agnopm`, or `agno` is a Unix-like-POSIX-compatible-OS agnostic, dumb package
 manager.  Which is one way to say it'll work on all POSIX-compatible platforms.
-But it's "dumb", by which is meant that it *will* overwrite files if two
-packages have the same files.  It won't do any kinda of smart checking like some
-do.
+
+But it is "dumb", by which is meant that it *will* overwrite files if two
+packages have the same files.  It won't do any kinda of smart checking like most
+others do.  It is your sole responsibility to not overwrite files.
 
 This is by no means meant to replace your OS's built-in package manager.  This
 is meant as a simple alternative to manually downloading software, running
@@ -33,16 +34,20 @@ To start using `agnopm` you just need to do a couple of things:
 
 This will install `agno`, make all the necessary dirs and download the already
 made ports so that you don't have to write them all (hopefully).  The bootstrap
-will additionally make a symlink of all the `agno` commands into the bin dir.
+will additionally make a symlink of all the `agno` commands into the /usr/bin
+dir.
 
 ### Using `agno`'s `/usr` directory
 
 Add `$HOME/agno/usr/bin` to your `PATH` variable.
 
-Use `man -m $HOME/agno/usr/man/` when you want to use man pages, setup an alias if you like.
+Use `man -m $HOME/agno/usr/man/` when you want to use man pages, setup an alias
+if you like.
 
+<!--
 Add `$HOME/agno/usr/lib` to your `LD_LIBRARY_PATH` variable and
 `$HOME/agno/usr/include` to your `C_INCLUDE_PATH` variable.
+-->
 
 ## Usage
 
