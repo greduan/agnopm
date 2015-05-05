@@ -2,4 +2,4 @@
 
 . $HOME/agno/agnorc
 
-ls -1 $AGNO_META
+\ls -1 $AGNO_META

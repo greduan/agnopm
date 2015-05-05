@@ -4,7 +4,7 @@
 . $HOME/agno/agnorc || exit 1
 
 # find package name in a lot of kinds of strings
-PKGNAME=$(basename $1 | cut -d# -f1)
+PKGNAME=$(basename "$1" | cut -d\# -f1)
 
 # delete all of the package's files
 cd $AGNO_HOME

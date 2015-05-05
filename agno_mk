@@ -2,7 +2,12 @@
 
 # load our vars
 . $HOME/agno/agnorc || exit 1
-. ./Pkgfile || exit 1
+if [ ! -e ./Pkgfile ]; then
+	echo "ERROR: There's no Pkgfile in the current dir!"
+	exit 1
+else
+	. ./Pkgfile
+fi
 
 PKGFILE_DIR=$PWD
 

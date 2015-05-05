@@ -1,18 +1,21 @@
 #!/bin/sh -e
 
-test -e "$1" || exit 1
+if [ ! -e "$1" ]; then
+	echo "ERROR: Provided package file doesn't exist!"
+	exit 1
+fi
 
 # get our vars
 . $HOME/agno/agnorc || exit 1
 
-PKGFILE=$(basename $1)
+PKGFILE=$(basename "$1")
 PKGNAME=$(echo $PKGFILE | cut -d\# -f1)
 
 # re-define var
 AGNO_WORK=$AGNO_WORK/$PKGFILE
 
 # uninstall package if it already exists
-if [ -n "$(ls -1 $AGNO_META | grep $PKGNAME)" ]; then
+if \ls -1 $AGNO_META | grep -q $PKGNAME; then
 	echo "Deleting previously installed package of same name."
 	$AGNO_HOME/agno_rm $PKGNAME
 fi
