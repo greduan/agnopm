@@ -10,23 +10,32 @@ PKGFILE_DIR=$PWD
 PKGNAME=$name\#$version-$release
 AGNO_SOURCE=$AGNO_SOURCE/$PKGNAME
 AGNO_DESTDIR=$AGNO_DESTDIR/$PKGNAME
+AGNO_WORK=$AGNO_WORK/$PKGNAME
 
 # download source files (if necessary)
-mkdir -p $AGNO_SOURCE
 if [ -n "$source" ]; then
+	test -d $AGNO_SOURCE || mkdir -p $AGNO_SOURCE
 	cd $AGNO_SOURCE
+
 	# loop through our sources
 	for src in $source; do
-		# only download stuff that looks like a URL
+		# looks like a URL, want to download this
 		if echo $src | grep -qE '^(http|ftp)s?://'; then
-			curl --ssl -L -O $src
+			# if file by the same name doesn't exist
+			if [ ! -e "${src##*/}" ]; then
+				curl --ssl -L -O $src
+			else
+				echo "Skipping download of '$src'."
+			fi
 		# looks like git, we want to handle this differently
 		elif echo $src | grep -qE '^git://'; then
 			# if we've already got a dir by that name
 			if cd $name-git; then
+				# reset state of local repo
 				git fetch -q
 				git reset --hard origin/master
 			else
+				# don't clone the whole thing, we don't need it
 				git clone --depth 1 $src $name-git
 			fi
 		# we've got ourselves a normal file
@@ -36,11 +45,12 @@ if [ -n "$source" ]; then
 	done
 fi
 
-# create necessary dirs for build
+# reset/create necessary dirs for build
+rm -rf $AGNO_DESTDIR $AGNO_WORK
 mkdir -p $AGNO_DESTDIR $AGNO_WORK
 
 # unpack / copy source files if there are any
-if [ -n "$(ls $AGNO_SOURCE 2>/dev/null)" ]; then
+if [ -n "$(\ls $AGNO_SOURCE 2>/dev/null)" ]; then
 	cp -fR $AGNO_SOURCE/* $AGNO_WORK
 	cd $AGNO_WORK
 	$AGNO_HOME/unboop *
