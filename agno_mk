@@ -26,11 +26,11 @@ if [ -n "$source" ]; then
 	for src in $source; do
 		# looks like a URL, want to download this
 		if echo $src | grep -qE '^(http|ftp)s?://'; then
-			# if file by the same name doesn't exist
-			if [ ! -e "${src##*/}" ]; then
-				curl --ssl -L -O $src
-			else
+			# if file by the same name already exists
+			if [ -e "${src##*/}" ]; then
 				echo "Skipping download of '$src'."
+			else
+				curl --ssl -L -O $src
 			fi
 		# looks like git, we want to handle this differently
 		elif echo $src | grep -qE '^git://'; then
